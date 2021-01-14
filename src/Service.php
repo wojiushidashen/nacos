@@ -16,9 +16,8 @@ use Hyperf\Nacos\Model\ServiceModel;
 
 class Service extends ServiceModel
 {
-    public function __construct(ConfigInterface $config)
+    public function __construct($config)
     {
-        $config = $config->get('nacos.service', []);
         parent::__construct($config);
     }
 }

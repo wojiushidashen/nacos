@@ -62,13 +62,16 @@ class OnShutdownListener implements ListenerInterface
 
         $logger = $this->container->get(LoggerInterface::class);
 
-        $instance = $this->container->get(Instance::class);
-        /** @var NacosInstance $nacosInstance */
-        $nacosInstance = make(NacosInstance::class);
-        if ($nacosInstance->delete($instance)) {
-            $logger && $logger->info('nacos instance delete success.');
-        } else {
-            $logger && $logger->erro('nacos instance delete fail when shutdown.');
+        $instanceConfigs = $config->get('nacos.client');
+        foreach ($instanceConfigs as $type => $instanceConfig) {
+            $instance = make(Instance::class, [$instanceConfig]);
+            /** @var NacosInstance $nacosInstance */
+            $nacosInstance = make(NacosInstance::class);
+            if ($nacosInstance->delete($instance)) {
+                $logger && $logger->info('nacos instance delete success.');
+            } else {
+                $logger && $logger->erro('nacos instance delete fail when shutdown.');
+            }
         }
     }
 }

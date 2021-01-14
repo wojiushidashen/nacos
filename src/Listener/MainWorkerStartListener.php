@@ -67,22 +67,24 @@ class MainWorkerStartListener implements ListenerInterface
 
         try {
             $nacosService = $this->container->get(NacosService::class);
-            $service = $this->container->get(Service::class);
-            $exist = $nacosService->detail($service);
-            if (! $exist && ! $nacosService->create($service)) {
-                throw new RuntimeException(sprintf('nacos register service fail: %s', $service));
+            $serviceConfigs = $config->get('nacos.service');
+            foreach ($serviceConfigs as $type => $serviceConfig) {
+                $service = make(Service::class, [$serviceConfig]);
+                $exist = $nacosService->detail($service);
+                if (! $exist && ! $nacosService->create($service)) {
+                    throw new RuntimeException(sprintf('nacos register service fail: %s', $service));
+                }
+                $this->logger->info('nacos register service success.', compact('service'));
+                $instanceConfig = $config->get('nacos.service.'.$type);
+                $instance = make(Instance::class, [$instanceConfig]);
+                $nacosInstance = $this->container->get(NacosInstance::class);
+                if (! $nacosInstance->register($instance)) {
+                    throw new RuntimeException(sprintf('nacos register instance fail: %s', $instance));
+                }
+                $this->logger->info('nacos register instance success.', compact('instance'));
             }
-            $this->logger->info('nacos register service success.', compact('service'));
-
-            $instance = $this->container->get(Instance::class);
-            $nacosInstance = $this->container->get(NacosInstance::class);
-            if (! $nacosInstance->register($instance)) {
-                throw new RuntimeException(sprintf('nacos register instance fail: %s', $instance));
-            }
-            $this->logger->info('nacos register instance success.', compact('instance'));
 
             $this->refreshConfig();
-
             if ($event instanceof MainCoroutineServerStart) {
                 $interval = (int) $config->get('nacos.config_reload_interval', 3);
                 Coroutine::create(function () use ($interval) {

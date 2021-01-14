@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8b5f8830-38e9-427d-a80b-e500067d3456" name="默认的" comment="" />
+    <list default="true" id="8b5f8830-38e9-427d-a80b-e500067d3456" name="默认的" comment="初始化">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/publish/nacos.php" beforeDir="false" afterPath="$PROJECT_DIR$/publish/nacos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Instance.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Instance.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Listener/MainWorkerStartListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Listener/MainWorkerStartListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Listener/OnShutdownListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Listener/OnShutdownListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Process/InstanceBeatProcess.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Process/InstanceBeatProcess.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +25,7 @@
   <component name="ProjectId" id="1mzeL64JShBX5TkzIA3Bbint6sC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -46,8 +55,16 @@
       <workItem from="1610500798773" duration="206000" />
       <workItem from="1610501100706" duration="90000" />
       <workItem from="1610501274332" duration="9484000" />
-      <workItem from="1610537112870" duration="2333000" />
+      <workItem from="1610537112870" duration="5634000" />
     </task>
+    <task id="LOCAL-00001" summary="初始化">
+      <created>1610587540816</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1610587540816</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -63,5 +80,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="初始化" />
+    <option name="LAST_COMMIT_MESSAGE" value="初始化" />
   </component>
 </project>

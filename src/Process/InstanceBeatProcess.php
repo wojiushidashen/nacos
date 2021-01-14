@@ -28,19 +28,22 @@ class InstanceBeatProcess extends AbstractProcess
 
     public function handle(): void
     {
-        $instance = $this->container->get(Instance::class);
-        $nacosInstance = $this->container->get(NacosInstance::class);
-        $service = $this->container->get(Service::class);
-
         $config = $this->container->get(ConfigInterface::class);
-        $logger = $this->container->get(LoggerInterface::class);
-        while (ProcessManager::isRunning()) {
-            sleep($config->get('nacos.client.beat_interval', 5));
-            $send = $nacosInstance->beat($service, $instance);
-            if ($send) {
-                $logger && $logger->debug('nacos send beat success!', compact('instance'));
-            } else {
-                $logger && $logger->error('nacos send beat fail!', compact('instance'));
+        $serviceConfigs = $config->get('nacos.service');
+        foreach ($serviceConfigs as $type => $serviceConfig) {
+            $service = make(Service::class, [$serviceConfig]);
+            $instanceConfig = $config->get('nacos.service.'.$type);
+            $instance = make(Instance::class, [$instanceConfig]);
+            $nacosInstance = $this->container->get(NacosInstance::class);
+            $logger = $this->container->get(LoggerInterface::class);
+            while (ProcessManager::isRunning()) {
+                sleep($config->get('nacos.client.'.$type.'.beat_interval', 5));
+                $send = $nacosInstance->beat($service, $instance);
+                if ($send) {
+                    $logger && $logger->debug('nacos send '.$type.' beat success!', compact('instance'));
+                } else {
+                    $logger && $logger->error('nacos send '.$type.' beat fail!', compact('instance'));
+                }
             }
         }
     }
@@ -48,6 +51,6 @@ class InstanceBeatProcess extends AbstractProcess
     public function isEnable($server): bool
     {
         $config = $this->container->get(ConfigInterface::class);
-        return $config->get('nacos.enable', true) && $config->get('nacos.client.beat_enable', false);
+        return $config->get('nacos.enable', true);
     }
 }

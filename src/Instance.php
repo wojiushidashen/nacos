@@ -18,9 +18,8 @@ use Hyperf\Utils\Str;
 
 class Instance extends InstanceModel
 {
-    public function __construct(ConfigInterface $config)
+    public function __construct($client)
     {
-        $client = $config->get('nacos.client', []);
         if (! isset($client['service_name'])) {
             throw new InvalidArgumentException('nacos.client.service_name is required');
         }

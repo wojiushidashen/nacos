@@ -22,23 +22,27 @@ return [
     'config_merge_mode' => Constants::CONFIG_MERGE_OVERWRITE,
     // The service info.
     'service' => [
-        'service_name' => 'hyperf',
-        'group_name' => 'api',
-        'namespace_id' => 'namespace_id',
-        'protect_threshold' => 0.5,
+        'http' => [
+            'service_name' => 'hyperf',
+            'group_name' => 'api',
+            'namespace_id' => 'namespace_id',
+            'protect_threshold' => 0.5,
+        ],
     ],
     // The client info.
     'client' => [
-        'ip' => '',
-        'port' => 0,
-        'service_name' => 'hyperf',
-        'group_name' => 'api',
-        'weight' => 80,
-        'cluster' => 'DEFAULT',
-        'ephemeral' => true,
-        'beat_enable' => true,
-        'beat_interval' => 5,
-        'namespace_id' => 'namespace_id', // It must be equal with service.namespaceId.
+        'http' => [
+            'ip' => '',
+            'port' => 0,
+            'service_name' => 'hyperf',
+            'group_name' => 'api',
+            'weight' => 80,
+            'cluster' => 'DEFAULT',
+            'ephemeral' => true,
+            'beat_enable' => true,
+            'beat_interval' => 5,
+            'namespace_id' => 'namespace_id', // It must be equal with service.namespaceId.
+        ],
     ],
     'remove_node_when_server_shutdown' => true,
     'config_reload_interval' => 3,
