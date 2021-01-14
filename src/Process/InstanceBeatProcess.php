@@ -36,15 +36,13 @@ class InstanceBeatProcess extends AbstractProcess
             $instance = make(Instance::class, [$instanceConfig]);
             $nacosInstance = $this->container->get(NacosInstance::class);
             $logger = $this->container->get(LoggerInterface::class);
-            while (ProcessManager::isRunning()) {
-                sleep($config->get('nacos.client.'.$type.'.beat_interval', 5));
-                $send = $nacosInstance->beat($service, $instance);
-                if ($send) {
-                    $logger && $logger->debug('nacos send '.$type.' beat success!', compact('instance'));
-                } else {
-                    $logger && $logger->error('nacos send '.$type.' beat fail!', compact('instance'));
-                }
+            $send = $nacosInstance->beat($service, $instance);
+            if ($send) {
+                $logger && $logger->debug('nacos send '.$type.' beat success!', compact('instance'));
+            } else {
+                $logger && $logger->error('nacos send '.$type.' beat fail!', compact('instance'));
             }
+            sleep($config->get('nacos.client.'.$type.'.beat_interval', 5));
         }
     }
 
