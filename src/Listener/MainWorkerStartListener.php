@@ -75,7 +75,7 @@ class MainWorkerStartListener implements ListenerInterface
                     throw new RuntimeException(sprintf('nacos register service fail: %s', $service));
                 }
                 $this->logger->info('nacos register service success.', compact('service'));
-                $instanceConfig = $config->get('nacos.service.'.$type);
+                $instanceConfig = $config->get('nacos.client.'.$type);
                 $instance = make(Instance::class, [$instanceConfig]);
                 $nacosInstance = $this->container->get(NacosInstance::class);
                 if (! $nacosInstance->register($instance)) {

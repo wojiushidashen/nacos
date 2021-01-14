@@ -32,7 +32,7 @@ class InstanceBeatProcess extends AbstractProcess
         $serviceConfigs = $config->get('nacos.service');
         foreach ($serviceConfigs as $type => $serviceConfig) {
             $service = make(Service::class, [$serviceConfig]);
-            $instanceConfig = $config->get('nacos.service.'.$type);
+            $instanceConfig = $config->get('nacos.client.'.$type);
             $instance = make(Instance::class, [$instanceConfig]);
             $nacosInstance = $this->container->get(NacosInstance::class);
             $logger = $this->container->get(LoggerInterface::class);
